@@ -22,7 +22,7 @@ namespace movies_asp_net_app.Controllers
         // GET: MovieController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(MovieList.FirstOrDefault(movie => movie.Id == id));
         }
 
         // GET: MovieController/Create
