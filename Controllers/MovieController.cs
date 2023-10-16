@@ -46,22 +46,24 @@ namespace movies_asp_net_app.Controllers
         // GET: MovieController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(MovieList.FirstOrDefault(movie => movie.Id == id));
         }
 
         // POST: MovieController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Movie movie)
         {
-            try
+            Movie movieToUpdate = MovieList.FirstOrDefault(movie => movie.Id == id);
+
+            if(movieToUpdate != null)
             {
-                return RedirectToAction(nameof(Index));
+                movieToUpdate.Title = movie.Title;
+                movieToUpdate.Description = movie.Description;  
+                movieToUpdate.Grade = movie.Grade;
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: MovieController/Delete/5
