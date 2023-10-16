@@ -34,16 +34,13 @@ namespace movies_asp_net_app.Controllers
         // POST: MovieController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Movie movie)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            // Set movie id to next
+            movie.Id = MovieList.Count + 1;
+
+            MovieList.Add(movie);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: MovieController/Edit/5
