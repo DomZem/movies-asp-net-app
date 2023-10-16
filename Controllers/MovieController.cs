@@ -67,22 +67,19 @@ namespace movies_asp_net_app.Controllers
         // GET: MovieController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(MovieList.FirstOrDefault(movie => movie.Id == id));
         }
 
         // POST: MovieController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Movie movie)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+           Movie movieToRemove = MovieList.FirstOrDefault(movie => movie.Id == id);
+           if (movieToRemove != null)
+                MovieList.Remove(movieToRemove);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
